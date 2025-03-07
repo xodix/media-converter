@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.min.css">
+  <script src="./main.js" defer></script>
+  <title>Media converter</title>
+</head>
+
+<body>
+  <main>
+    <h1>Media converter</h1>
+
+
+    <form>
+      <div id="error">To nie powinno być tak</div>
+
+      <div class="decision-block">
+        <label for="file">Pliki:</label>
+        <br>
+        <input type="file" accept=".png,.jpg,.gif,.svg,.webp" id="file" required multiple>
+      </div>
+
+      <div class="decision-block">
+        <label for="format">Format:</label>
+        <br>
+        <select id="format">
+          <option selected>.png</option>
+          <option>.jpg</option>
+          <option>.gif</option>
+        </select>
+      </div>
+
+      <div class="decision-block">
+        <!-- TODO: Na co to zmienić -->
+        <label for="bw">Czerń i biel:</label>
+        <input type="radio" name="color-type" id="bw">
+
+        <label for="clr">Kolor:</label>
+        <input type="radio" name="color-type" id="clr" checked>
+      </div>
+
+      <div class="decision-block">
+
+        <label for="width">Szerokość:</label>
+        <br>
+        <input id="width" type="number" required>
+        <br>
+        <label for="height">Wysokość:</label>
+        <br>
+        <input id="height" type="number" required>
+        <br>
+      </div>
+
+      <div class="decision-block">
+        <button type="submit">Pobierz</button>
+        <button type="reset">Zacznij od nowa</button>
+      </div>
+    </form>
+
+    <div id="images">
+
+    </div>
+  </main>
+  <footer>Bartłomiej Deska 2025</footer>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

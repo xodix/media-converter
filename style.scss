@@ -1,0 +1,132 @@
+$primary-color: hsl(0, 0%, 24%);
+$secondary-color: white;
+$accent-color: #ff0000;
+$complementing-color: hsl(0, 0%, 15%);
+
+body {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  background-color: $primary-color;
+  color: $secondary-color;
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  padding: 1rem;
+  font-size: xx-large;
+  text-align: center;
+}
+
+#error {
+  padding: 0.5rem;
+  background-color: red;
+  font-weight: bold;
+  display: none;
+}
+
+form {
+  width: 50%;
+  margin: auto;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: hsl(0, 0%, 25%);
+}
+
+.decision-block {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+label {
+  margin-bottom: 0.15rem;
+  display: inline-block;
+}
+
+// stolen from tailwindcss
+button,
+input,
+option,
+select,
+optgroup,
+textarea,
+::file-selector-button {
+  font-size: medium;
+  background-color: transparent;
+  color: white;
+}
+
+::file-selector-button {
+  border: none;
+  border-right: 1px solid white;
+}
+
+select,
+input,
+button {
+  box-sizing: border-box;
+  border: 1px solid $primary-color;
+  width: 100%;
+  display: block;
+  height: 2.5rem;
+  border-radius: 0.35rem;
+  background-color: $complementing-color;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  height: 1.5em;
+  width: auto;
+  display: inline;
+}
+
+hr {
+  margin: 0;
+  border-color: $accent-color;
+}
+
+input:hover,
+select:hover {
+  box-sizing: border-box;
+  border: 2px solid $accent-color;
+}
+
+button {
+  font-size: large;
+  padding: 0.5rem;
+  background-color: #af0404;
+  border: 1px solid black;
+  margin-bottom: 1rem;
+}
+
+button:hover {
+  border: 2px solid black;
+}
+
+canvas {
+  margin: auto;
+  display: block;
+}
+
+@media screen and (max-width: 870px) {
+  form {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  form {
+    width: 100%;
+    padding: 0.25rem;
+  }
+}
+
+footer {
+  background-color: $complementing-color;
+  padding: 0.75rem;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
