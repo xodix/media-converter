@@ -10,12 +10,32 @@ body {
   color: $secondary-color;
   padding: 0;
   margin: 0;
+  min-height: 100vh;
 }
 
-h1 {
+nav {
+  background-color: $complementing-color;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   padding: 1rem;
+}
+
+nav > h1 {
+  margin: 0;
   font-size: xx-large;
   text-align: center;
+}
+
+.spacer {
+  height: 3rem;
+}
+
+main {
+  width: 50%;
+  max-width: 100%;
+  margin: auto;
 }
 
 #error {
@@ -26,11 +46,11 @@ h1 {
 }
 
 form {
-  width: 50%;
-  margin: auto;
-  padding: 1rem;
+  width: 100%;
+  background-color: hsl(0, 0%, 30%);
   border-radius: 1rem;
-  background-color: hsl(0, 0%, 25%);
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .decision-block {
@@ -103,30 +123,59 @@ button:hover {
   border: 2px solid black;
 }
 
+#images {
+  background-color: $complementing-color;
+  border-radius: 1rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+#images,
+form {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.25rem;
+}
+
 canvas {
+  max-width: 100%;
   margin: auto;
   display: block;
 }
 
 @media screen and (max-width: 870px) {
-  form {
+  main {
     width: 75%;
   }
 }
 
 @media screen and (max-width: 570px) {
-  form {
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
+  main {
     width: 100%;
-    padding: 0.25rem;
+  }
+
+  #images,
+  form {
+    padding: 0.4rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    width: 95%;
+    margin: auto;
   }
 }
 
 footer {
   background-color: $complementing-color;
+  font-size: 1rem;
+  height: 1rem;
   padding: 0.75rem;
   text-align: center;
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
+  width: calc(100vw - 1.5rem);
 }
