@@ -1,10 +1,27 @@
 import { appendError } from "./error";
-enum ImageType {
+
+// More could be added
+export type ImageType =
+  | "image/png"
+  | "image/jpeg"
+  | "image/svg"
+  | "image/webp"
+  | "image/svg+xml"
+  | "image/ico"
+  | "image/gif"
+  | "image/avif"
+  | "image/apng";
+export const ImageTypes = new Set([
   "image/png",
   "image/jpeg",
   "image/svg",
   "image/webp",
-}
+  "image/svg+xml",
+  "image/gif",
+  "image/avif",
+  "image/apng",
+  "image/ico",
+]);
 
 interface ImageRepresentation {
   canvas: HTMLCanvasElement;
@@ -21,8 +38,7 @@ export class Configuration {
   constructor() {
     this.width = 300;
     this.height = 300;
-    this.outputFormat = ImageType["image/webp"];
-    // TODO Images should have a
+    this.outputFormat = "image/webp";
     this.imgs = [];
   }
 
@@ -34,6 +50,14 @@ export class Configuration {
     this.height = height;
   }
 
+  resetImages() {
+    for (let i = 0; i < this.imgs.length; i++) {
+      const imageInfo = this.imgs[i];
+      URL.revokeObjectURL(imageInfo.imageURL);
+    }
+    this.imgs.length = 0;
+  }
+
   changeFormat(format: ImageType) {
     this.outputFormat = format;
   }
@@ -42,3 +66,5 @@ export class Configuration {
     this.imgs.push(image);
   }
 }
+
+export const configuration = new Configuration();

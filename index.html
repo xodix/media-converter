@@ -21,17 +21,18 @@
       <div class="decision-block">
         <label for="file">Pliki:</label>
         <br>
-        <input type="file" accept=".png,.jpg,.gif,.svg,.webp" id="file" required multiple>
+        <!-- All supported formats as recommended by MDN. -->
+        <input type="file" accept=".png, .jpg, .jpeg, .gif, .svg, .webp, .avif, .apng" id="file" required multiple>
       </div>
 
       <div class="decision-block">
         <label for="format">Format:</label>
         <br>
+        <!-- All supported formats as recommended by MDN. -->
         <select id="format">
           <option selected>.webp</option>
           <option>.png</option>
           <option>.jpg</option>
-          <option>.gif</option>
         </select>
       </div>
 
@@ -45,11 +46,11 @@
       </div>
 
       <div class="decision-block">
-
         <label for="width">Szerokość:</label>
         <br>
         <input id="width" type="number" value="500" required>
         <br>
+
         <label for="height">Wysokość:</label>
         <br>
         <input id="height" type="number" value="500" required>
@@ -62,9 +63,7 @@
       </div>
     </form>
 
-    <div id="images">
-
-    </div>
+    <div id="images"></div>
   </main>
   <div class="spacer"></div>
   <footer>Bartłomiej Deska 2025</footer>
