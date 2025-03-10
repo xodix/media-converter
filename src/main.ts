@@ -3,6 +3,7 @@ import { changeColor } from "./events/color";
 import { handleDimensionChange } from "./events/dimensions";
 import { handleSubmit } from "./events/download";
 import { handleFileChange, handleCancel } from "./events/file";
+import { handleFormatChange } from "./events/format";
 
 // file change
 const imgInput = document.getElementById("file") as HTMLInputElement;
@@ -24,4 +25,24 @@ blackAndWhiteRadio.addEventListener("change", changeColor);
 const widthInput = document.getElementById("width") as HTMLInputElement;
 const heightInput = document.getElementById("height") as HTMLInputElement;
 widthInput.addEventListener("input", handleDimensionChange);
-heightInput.addEventListener("input", () => console.log(configuration));
+heightInput.addEventListener("input", handleDimensionChange);
+
+// debug
+const configButton = document.getElementById("config");
+configButton?.addEventListener("click", () => console.log(configuration));
+
+// format
+const formatSelect = document.getElementById("format") as HTMLSelectElement;
+formatSelect.addEventListener("change", handleFormatChange);
+
+const fetchButton = document.getElementById("fetch") as HTMLButtonElement;
+async function handleFetch(_: Event) {
+  const images = [];
+  for (let i = 0; i < 5; i++) {
+    const image = fetch("https://picsum.photos/200/300", { method: "GET" });
+    images.push(image);
+  }
+  //TODO
+  (await Promise.all(images)).map();
+}
+fetchButton.addEventListener("click", handleFetch);

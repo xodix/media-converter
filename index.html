@@ -23,6 +23,7 @@
         <br>
         <!-- All supported formats as recommended by MDN. -->
         <input type="file" accept=".png, .jpg, .jpeg, .gif, .svg, .webp, .avif, .apng" id="file" required multiple>
+        <button class="fetch-button" type="button" id="fetch">Random</button>
       </div>
 
       <div class="decision-block">
@@ -30,9 +31,9 @@
         <br>
         <!-- All supported formats as recommended by MDN. -->
         <select id="format">
-          <option selected>.webp</option>
-          <option>.png</option>
-          <option>.jpg</option>
+          <option value="image/webp" selected>.webp</option>
+          <option value="image/png">.png</option>
+          <option value="image/jpeg">.jpg</option>
         </select>
       </div>
 
@@ -60,6 +61,7 @@
       <div class="decision-block">
         <button type="submit">Pobierz</button>
         <button type="reset" id="reset">Zacznij od nowa</button>
+        <button type="button" id="config">SHOW CONFIG DEBUG</button>
       </div>
     </form>
 

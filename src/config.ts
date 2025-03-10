@@ -33,12 +33,14 @@ export class Configuration {
   width: number;
   height: number;
   outputFormat: ImageType;
+  blackAndWhite: boolean;
   imgs: ImageRepresentation[];
 
   constructor() {
     this.width = 300;
     this.height = 300;
     this.outputFormat = "image/webp";
+    this.blackAndWhite = false;
     this.imgs = [];
   }
 
@@ -59,6 +61,11 @@ export class Configuration {
   }
 
   changeFormat(format: ImageType) {
+    if (!ImageTypes.has(format)) {
+      appendError("Wrong format was selected [formatChange]");
+      return;
+    }
+
     this.outputFormat = format;
   }
 

@@ -1,9 +1,12 @@
 import { configuration } from "./../config";
+import { redrawToGrayscale } from "../grayscale";
 
 const widthInput = document.getElementById("width") as HTMLInputElement;
 const heightInput = document.getElementById("height") as HTMLInputElement;
 
 export function redrawImages() {
+  // TODO FIX THIS SPINLOCK
+  let loaded = 0;
   for (let i = 0; i < configuration.imgs.length; i++) {
     const { canvas, imageURL, fileName } = configuration.imgs[i];
 
@@ -21,8 +24,19 @@ export function redrawImages() {
         configuration.height
       );
       imageElement.onload = null;
+      loaded++;
     };
     imageElement.alt = fileName;
+  }
+
+  // TODO FIX THIS SPINLOCK
+  if (configuration.blackAndWhite) {
+    const int = setInterval(() => {
+      if (loaded === configuration.imgs.length) {
+        redrawToGrayscale();
+        clearInterval(int);
+      }
+    }, 100);
   }
 }
 
@@ -39,5 +53,5 @@ export function handleDimensionChange(_: Event) {
     }
 
     redrawImages();
-  }, 1000);
+  }, 250);
 }

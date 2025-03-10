@@ -1,10 +1,11 @@
 import { configuration, ImageTypes } from "../config";
 import { appendError, resetError } from "../error";
+import { redrawToGrayscale } from "../grayscale";
 
 const imgInput = document.getElementById("file") as HTMLInputElement;
 const imagesElement = document.getElementById("images") as HTMLDivElement;
 
-function addImage(e: Event) {
+function addImage(e: Event, loadedObj: { loaded: number }) {
   const canvas = document.createElement("canvas");
   canvas.width = configuration.width;
   canvas.height = configuration.height;
@@ -32,6 +33,7 @@ function addImage(e: Event) {
   canvas.setAttribute("alt", (e.target as HTMLImageElement).alt);
 
   imagesElement.appendChild(canvas);
+  loadedObj.loaded++;
 }
 
 export function handleFileChange(_: Event) {
@@ -43,6 +45,9 @@ export function handleFileChange(_: Event) {
     return;
   }
 
+  // This is an object so it could be passed by reference
+  // TODO FIX THIS SPINLOCK
+  let loadedObj = { loaded: 0 };
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
 
@@ -56,9 +61,19 @@ export function handleFileChange(_: Event) {
     const url = URL.createObjectURL(file);
 
     const image = new Image(configuration.width, configuration.height);
-    image.onload = addImage;
+    image.onload = (e) => addImage(e, loadedObj);
     image.src = url;
     image.alt = file.name;
+  }
+
+  // TODO FIX THIS SPINLOCK
+  if (configuration.blackAndWhite) {
+    const int = setInterval(() => {
+      if (loadedObj.loaded === files.length) {
+        redrawToGrayscale();
+        clearInterval(int);
+      }
+    }, 100);
   }
 }
 

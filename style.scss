@@ -106,7 +106,9 @@ hr {
 }
 
 input:hover,
-select:hover {
+select:hover,
+input:focus,
+select:focus {
   box-sizing: border-box;
   border: 2px solid $accent-color;
 }
@@ -119,7 +121,8 @@ button {
   margin-bottom: 1rem;
 }
 
-button:hover {
+button:hover,
+:focus {
   border: 2px solid black;
 }
 
@@ -178,4 +181,14 @@ footer {
   position: fixed;
   bottom: 0;
   width: calc(100vw - 1.5rem);
+}
+
+.fetch-button {
+  background-color: $complementing-color;
+  border: solid $accent-color 1px;
+}
+
+.fetch-button:hover,
+.fetch-button:focus {
+  border: solid $accent-color 2px;
 }
