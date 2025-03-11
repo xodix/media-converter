@@ -5,7 +5,7 @@ import { redrawToGrayscale } from "../grayscale";
 const imgInput = document.getElementById("file") as HTMLInputElement;
 const imagesElement = document.getElementById("images") as HTMLDivElement;
 
-function addImage(e: Event, loadedObj: { loaded: number }) {
+export function addImage(e: Event, loadedObj: { loaded: number }) {
   const canvas = document.createElement("canvas");
   canvas.width = configuration.width;
   canvas.height = configuration.height;

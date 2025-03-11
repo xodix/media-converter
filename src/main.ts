@@ -2,6 +2,7 @@ import { configuration } from "./config";
 import { changeColor } from "./events/color";
 import { handleDimensionChange } from "./events/dimensions";
 import { handleSubmit } from "./events/download";
+import { handleFetch } from "./events/fetchRandom";
 import { handleFileChange, handleCancel } from "./events/file";
 import { handleFormatChange } from "./events/format";
 
@@ -35,14 +36,6 @@ configButton?.addEventListener("click", () => console.log(configuration));
 const formatSelect = document.getElementById("format") as HTMLSelectElement;
 formatSelect.addEventListener("change", handleFormatChange);
 
+// fetch random from API
 const fetchButton = document.getElementById("fetch") as HTMLButtonElement;
-async function handleFetch(_: Event) {
-  const images = [];
-  for (let i = 0; i < 5; i++) {
-    const image = fetch("https://picsum.photos/200/300", { method: "GET" });
-    images.push(image);
-  }
-  //TODO
-  (await Promise.all(images)).map();
-}
 fetchButton.addEventListener("click", handleFetch);
