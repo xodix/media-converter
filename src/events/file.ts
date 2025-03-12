@@ -1,11 +1,11 @@
 import { configuration, ImageTypes } from "../config";
 import { appendError, resetError } from "../error";
-import { redrawToGrayscale } from "../grayscale";
+import { turnBufferBlackAndWhite } from "../grayscale";
 
 const imgInput = document.getElementById("file") as HTMLInputElement;
 const imagesElement = document.getElementById("images") as HTMLDivElement;
 
-export function addImage(e: Event, loadedObj: { loaded: number }) {
+export function addImage(e: Event) {
   const canvas = document.createElement("canvas");
   canvas.width = configuration.width;
   canvas.height = configuration.height;
@@ -24,6 +24,19 @@ export function addImage(e: Event, loadedObj: { loaded: number }) {
     configuration.width,
     configuration.height
   );
+
+  if (configuration.blackAndWhite) {
+    let imageData = ctx.getImageData(
+      0,
+      0,
+      configuration.width,
+      configuration.height
+    );
+    turnBufferBlackAndWhite(imageData.data);
+    ctx.clearRect(0, 0, configuration.width, configuration.height);
+    ctx.putImageData(imageData, 0, 0);
+  }
+
   configuration.imgs.push({
     canvas,
     imageURL: (e.target as HTMLImageElement).src,
@@ -33,10 +46,10 @@ export function addImage(e: Event, loadedObj: { loaded: number }) {
   canvas.setAttribute("alt", (e.target as HTMLImageElement).alt);
 
   imagesElement.appendChild(canvas);
-  loadedObj.loaded++;
 }
 
 export function handleFileChange(_: Event) {
+  configuration.busy = true;
   resetError();
   imagesElement.innerHTML = "";
   const files = imgInput.files;
@@ -46,8 +59,6 @@ export function handleFileChange(_: Event) {
   }
 
   // This is an object so it could be passed by reference
-  // TODO FIX THIS SPINLOCK
-  let loadedObj = { loaded: 0 };
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
 
@@ -61,20 +72,11 @@ export function handleFileChange(_: Event) {
     const url = URL.createObjectURL(file);
 
     const image = new Image(configuration.width, configuration.height);
-    image.onload = (e) => addImage(e, loadedObj);
+    image.onload = (e) => addImage(e);
     image.src = url;
     image.alt = file.name;
   }
-
-  // TODO FIX THIS SPINLOCK
-  if (configuration.blackAndWhite) {
-    const int = setInterval(() => {
-      if (loadedObj.loaded === files.length) {
-        redrawToGrayscale();
-        clearInterval(int);
-      }
-    }, 100);
-  }
+  configuration.busy = false;
 }
 
 export function handleCancel(_: Event) {

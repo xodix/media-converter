@@ -34,6 +34,7 @@ export class Configuration {
   height: number;
   outputFormat: ImageType;
   blackAndWhite: boolean;
+  busy: boolean;
   imgs: ImageRepresentation[];
 
   constructor() {
@@ -41,6 +42,7 @@ export class Configuration {
     this.height = 300;
     this.outputFormat = "image/webp";
     this.blackAndWhite = false;
+    this.busy = false;
     this.imgs = [];
   }
 
@@ -71,6 +73,43 @@ export class Configuration {
 
   addImage(image: ImageRepresentation) {
     this.imgs.push(image);
+  }
+
+  save() {
+    localStorage.setItem("configuration", JSON.stringify(this));
+  }
+
+  load() {
+    const configurationJSON = localStorage.getItem("configuration");
+    if (configurationJSON === null) {
+      return;
+    }
+    const config: Configuration = JSON.parse(configurationJSON);
+
+    const widthInput = document.getElementById("width") as HTMLInputElement;
+    const heightInput = document.getElementById("height") as HTMLInputElement;
+    this.width = config.width;
+    this.height = config.height;
+    widthInput.value = config.width.toString();
+    heightInput.value = config.height.toString();
+
+    const formatSelect = document.getElementById("format") as HTMLSelectElement;
+    this.outputFormat = config.outputFormat;
+    formatSelect.value = config.outputFormat;
+
+    const blackAndWhiteRadio = document.getElementById(
+      "bw"
+    ) as HTMLInputElement;
+    const colorRadio = document.getElementById("clr") as HTMLInputElement;
+    this.blackAndWhite = config.blackAndWhite;
+    if (config.blackAndWhite) {
+      blackAndWhiteRadio.checked = true;
+    } else {
+      colorRadio.checked = true;
+    }
+
+    this.busy = false;
+    this.imgs = [];
   }
 }
 

@@ -5,6 +5,7 @@ import { configuration } from "../config";
 
 export function handleSubmit(e: Event) {
   e.preventDefault();
+  if (configuration.busy) return;
   resetError();
   let zippy = new JSZip();
   const images = configuration.imgs;
