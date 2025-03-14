@@ -1,9 +1,15 @@
 import { configuration } from "../config";
+import { addThrobber, removeThrobber } from "../throbber";
 import { addImage } from "./file";
 
 export async function handleFetch(_: Event) {
   if (configuration.busy) return;
   configuration.busy = true;
+
+  const centerElement = (document.getElementById("fetch") as HTMLDivElement)
+    .children[0] as HTMLDivElement;
+  addThrobber(centerElement);
+
   const images = [];
   // Improve performance more
   for (let i = 0; i < 5; i++) {
@@ -21,5 +27,8 @@ export async function handleFetch(_: Event) {
     image.onload = addImage;
   });
 
-  configuration.busy = false;
+  Promise.all(images).then(() => {
+    removeThrobber(centerElement);
+    configuration.busy = false;
+  });
 }

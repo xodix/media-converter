@@ -2,10 +2,18 @@ import JSZip from "jszip";
 import { resetError } from "../error";
 import saveAs from "file-saver";
 import { configuration } from "../config";
+import { addThrobber, removeThrobber } from "../throbber";
 
+// TODO: Throbber fires after file download
 export function handleSubmit(e: Event) {
   e.preventDefault();
   if (configuration.busy) return;
+  configuration.busy = true;
+
+  const centerElement = (document.getElementById("download") as HTMLDivElement)
+    .children[0] as HTMLDivElement;
+  addThrobber(centerElement);
+
   resetError();
   let zippy = new JSZip();
   const images = configuration.imgs;
@@ -30,5 +38,7 @@ export function handleSubmit(e: Event) {
     })
     .then((zip_archive) => {
       saveAs(zip_archive, "images.zip");
+      removeThrobber(centerElement);
+      configuration.busy = false;
     });
 }

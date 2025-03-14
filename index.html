@@ -20,11 +20,15 @@
       <div id="error">To nie powinno być tak</div>
 
       <div class="decision-block">
-        <label for="file">Pliki:</label>
+        <label for="file">Obrazy:</label>
         <br>
         <!-- All supported formats as recommended by MDN. -->
         <input type="file" accept=".png, .jpg, .jpeg, .gif, .svg, .webp, .avif, .apng" id="file" required multiple>
-        <button class="fetch-button" type="button" id="fetch">Random</button>
+        <button class="fetch-button" type="button" id="fetch">
+          <div class="center">
+            <div>Losowe</div>
+          </div>
+        </button>
       </div>
 
       <div class="decision-block">
@@ -60,7 +64,11 @@
       </div>
 
       <div class="decision-block">
-        <button type="submit">Pobierz</button>
+        <button type="submit" id="download">
+          <div class="center">
+            <div>Pobierz</div>
+          </div>
+        </button>
         <button type="reset" id="reset">Zacznij od nowa</button>
         <button type="button" id="config">SHOW CONFIG DEBUG</button>
       </div>

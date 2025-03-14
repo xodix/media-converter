@@ -192,3 +192,35 @@ footer {
 .fetch-button:focus {
   border: solid $accent-color 2px;
 }
+
+.center {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.throbber {
+  width: 0.5rem;
+  height: 0.5rem;
+  display: inline-block;
+  margin-left: 0.5rem;
+  border-radius: 50%;
+  border: 0.3rem dotted red;
+  animation-name: throbber;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+button[type="submit"] .throbber {
+  border-color: white;
+}
+
+@keyframes throbber {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
