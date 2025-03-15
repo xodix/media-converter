@@ -1,4 +1,5 @@
 import { configuration } from "./config";
+import { handleBlur } from "./events/blur";
 import { changeColor } from "./events/color";
 import { handleDimensionChange } from "./events/dimensions";
 import { handleSubmit } from "./events/download";
@@ -31,8 +32,8 @@ window.addEventListener("DOMContentLoaded", () => {
   heightInput.addEventListener("input", handleDimensionChange);
 
   // debug
-  const configButton = document.getElementById("config");
-  configButton?.addEventListener("click", () => console.log(configuration));
+  const configButton = document.getElementById("config") as HTMLButtonElement;
+  configButton.addEventListener("click", () => console.log(configuration));
 
   // format
   const formatSelect = document.getElementById("format") as HTMLSelectElement;
@@ -41,6 +42,9 @@ window.addEventListener("DOMContentLoaded", () => {
   // fetch random from API
   const fetchButton = document.getElementById("fetch") as HTMLButtonElement;
   fetchButton.addEventListener("click", handleFetch);
+
+  const blurCheckbox = document.getElementById("blur") as HTMLInputElement;
+  blurCheckbox.addEventListener("change", handleBlur);
 });
 
 window.addEventListener("unload", () => configuration.save());
