@@ -47,4 +47,4 @@ window.addEventListener("DOMContentLoaded", () => {
   blurCheckbox.addEventListener("change", handleBlur);
 });
 
-window.addEventListener("unload", () => configuration.save());
+window.addEventListener("beforeunload", () => configuration.save());
