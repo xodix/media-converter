@@ -1,3 +1,4 @@
+import { boxBlur, gaussianBlur } from "../blur";
 import { configuration } from "../config";
 import { appendError } from "../error";
 import { redrawImages } from "./dimensions";
@@ -25,13 +26,9 @@ export function handleBlur(_: Event) {
       configuration.width,
       configuration.height
     );
-    const data = imageData.data;
-    const standard_divisor = Math.sqrt(2 * Math.PI) * 3;
-    for (let i = 0; i < data.length; i += 4) {
-      data[i] = Math.exp((-i * i) / 18) / standard_divisor;
-      data[i + 1] = Math.exp((-(i + 1) * (i + 1)) / 18) / standard_divisor;
-      data[i + 2] = Math.exp((-(i + 2) * (i + 2)) / 18) / standard_divisor;
-    }
+
+    gaussianBlur(imageData.data, configuration.width, configuration.height, 4);
+
     ctx.putImageData(imageData, 0, 0);
   }
 }
