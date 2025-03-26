@@ -29,6 +29,7 @@ interface ImageRepresentation {
   imageURL: string;
 }
 
+const imgInput = document.getElementById("file") as HTMLInputElement;
 export class Configuration {
   width: number;
   height: number;
@@ -60,6 +61,8 @@ export class Configuration {
       URL.revokeObjectURL(imageInfo.imageURL);
     }
     this.imgs.length = 0;
+
+    imgInput.toggleAttribute("required", true);
   }
 
   changeFormat(format: ImageType) {
@@ -72,6 +75,7 @@ export class Configuration {
   }
 
   addImage(image: ImageRepresentation) {
+    imgInput.removeAttribute("required");
     this.imgs.push(image);
   }
 

@@ -37,7 +37,7 @@ export function addImage(e: Event) {
     ctx.putImageData(imageData, 0, 0);
   }
 
-  configuration.imgs.push({
+  configuration.addImage({
     canvas,
     imageURL: (e.target as HTMLImageElement).src,
     fileName: (e.target as HTMLImageElement).alt,
