@@ -81,7 +81,7 @@ export function boxBlur(
   height: number,
   radius: number
 ) {
-  console.time("Blurring");
+  console.time("BoxBlur");
   console.assert(
     height > radius && width > radius,
     "Radius cannot be larger than width or height."
@@ -100,7 +100,7 @@ export function boxBlur(
       applyKernel(arr, width, [x, y], boxKernel);
     }
   }
-  console.timeEnd("Blurring");
+  console.timeEnd("BoxBlur");
 }
 
 const gaussianKernel = createGaussianKernel(4);
@@ -110,7 +110,7 @@ export function gaussianBlur(
   height: number,
   radius: number
 ) {
-  console.time("Blurring");
+  console.time("GaussianBlur");
   console.assert(
     height > radius && width > radius,
     "Radius cannot be larger than width or height."
@@ -127,5 +127,5 @@ export function gaussianBlur(
       applyKernel(arr, width, [x, y], gaussianKernel);
     }
   }
-  console.timeEnd("Blurring");
+  console.timeEnd("GaussianBlur");
 }
