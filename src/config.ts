@@ -35,6 +35,7 @@ export class Configuration {
   height: number;
   outputFormat: ImageType;
   blackAndWhite: boolean;
+  blurred: boolean;
   busy: boolean;
   imgs: ImageRepresentation[];
 
@@ -43,6 +44,7 @@ export class Configuration {
     this.height = 300;
     this.outputFormat = "image/webp";
     this.blackAndWhite = false;
+    this.blurred = false;
     this.busy = false;
     this.imgs = [];
   }
@@ -111,6 +113,9 @@ export class Configuration {
     } else {
       colorRadio.checked = true;
     }
+
+    const blurredCheckbox = document.getElementById("blur") as HTMLInputElement;
+    blurredCheckbox.checked = true;
 
     this.busy = false;
     this.imgs = [];
