@@ -1,52 +1,9 @@
 import { configuration, ImageTypes } from "../config";
+import { redrawInitial } from "../draw";
 import { appendError, resetError } from "../error";
-import { turnBufferBlackAndWhite } from "../grayscale";
 
 const imgInput = document.getElementById("file") as HTMLInputElement;
 const imagesElement = document.getElementById("images") as HTMLDivElement;
-
-export function addImage(e: Event) {
-  const canvas = document.createElement("canvas");
-  canvas.width = configuration.width;
-  canvas.height = configuration.height;
-
-  const ctx = canvas.getContext("2d", {
-    willReadFrequently: true,
-  });
-  if (ctx === null) {
-    appendError("could not get the 2D context of the canvas. [adding image]");
-    return;
-  }
-  ctx.drawImage(
-    e.target as HTMLImageElement,
-    0,
-    0,
-    configuration.width,
-    configuration.height
-  );
-
-  if (configuration.blackAndWhite) {
-    let imageData = ctx.getImageData(
-      0,
-      0,
-      configuration.width,
-      configuration.height
-    );
-    turnBufferBlackAndWhite(imageData.data);
-    ctx.clearRect(0, 0, configuration.width, configuration.height);
-    ctx.putImageData(imageData, 0, 0);
-  }
-
-  configuration.addImage({
-    canvas,
-    imageURL: (e.target as HTMLImageElement).src,
-    fileName: (e.target as HTMLImageElement).alt,
-  });
-  canvas.role = "img";
-  canvas.setAttribute("alt", (e.target as HTMLImageElement).alt);
-
-  imagesElement.appendChild(canvas);
-}
 
 export function handleFileChange(_: Event) {
   configuration.busy = true;
@@ -70,12 +27,14 @@ export function handleFileChange(_: Event) {
     }
 
     const url = URL.createObjectURL(file);
-
-    const image = new Image(configuration.width, configuration.height);
-    image.onload = (e) => addImage(e);
-    image.src = url;
-    image.alt = file.name;
+    configuration.addImage({
+      canvas: null,
+      fileName: file.name,
+      imageURL: url,
+    });
   }
+
+  redrawInitial();
   configuration.busy = false;
 }
 

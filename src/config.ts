@@ -24,7 +24,7 @@ export const ImageTypes = new Set([
 ]);
 
 interface ImageRepresentation {
-  canvas: HTMLCanvasElement;
+  canvas: HTMLCanvasElement | null;
   fileName: string;
   imageURL: string;
 }
@@ -82,6 +82,7 @@ export class Configuration {
   }
 
   save() {
+    this.imgs.length = 0;
     localStorage.setItem("configuration", JSON.stringify(this));
   }
 
@@ -115,7 +116,7 @@ export class Configuration {
     }
 
     const blurredCheckbox = document.getElementById("blur") as HTMLInputElement;
-    blurredCheckbox.checked = true;
+    blurredCheckbox.checked = config.blurred;
 
     this.busy = false;
     this.imgs = [];

@@ -1,5 +1,5 @@
 import JSZip from "jszip";
-import { resetError } from "../error";
+import { appendError, resetError } from "../error";
 import saveAs from "file-saver";
 import { configuration } from "../config";
 import { addThrobber, removeThrobber } from "../throbber";
@@ -21,6 +21,10 @@ export function handleSubmit(e: Event) {
   const extension = "." + configuration.outputFormat.substring(6);
   for (let i = 0; i < images.length; i++) {
     const { canvas, fileName } = images[i];
+    if (canvas === null) {
+      appendError("Could not get the canvas. [submit]");
+      return;
+    }
     let imageData = canvas.toDataURL(configuration.outputFormat, 0.7);
 
     zippy.file(fileName.split(".")[0] + extension, imageData.split(",")[1], {

@@ -1,6 +1,8 @@
 import { configuration } from "../config";
+import { redrawImages, redrawInitial } from "../draw";
 import { addThrobber, removeThrobber } from "../throbber";
-import { addImage } from "./file";
+
+const imagesElement = document.getElementById("images") as HTMLDivElement;
 
 export async function handleFetch(_: Event) {
   if (configuration.busy) return;
@@ -10,7 +12,7 @@ export async function handleFetch(_: Event) {
     .children[0] as HTMLDivElement;
   addThrobber(centerElement);
 
-  const images = [];
+  const images: Promise<Response>[] = [];
   // Improve performance more
   for (let i = 0; i < 5; i++) {
     const image = fetch(
@@ -19,16 +21,26 @@ export async function handleFetch(_: Event) {
     );
     images.push(image);
   }
+  let x = 0;
+
   images.forEach(async (response, i) => {
     const imageURL = URL.createObjectURL(await (await response).blob());
-    const image = new Image(configuration.width, configuration.height);
-    image.src = imageURL;
-    image.alt = "randomPicture" + i;
-    image.onload = addImage;
-  });
+    const canvas = document.createElement("canvas");
+    canvas.width = configuration.width;
+    canvas.height = configuration.height;
 
-  Promise.all(images).then(() => {
-    removeThrobber(centerElement);
-    configuration.busy = false;
+    configuration.addImage({
+      canvas: canvas,
+      imageURL,
+      fileName: "random-file" + i,
+    });
+    imagesElement.appendChild(canvas);
+    x++;
+
+    if (x === images.length) {
+      redrawImages();
+      configuration.busy = false;
+      removeThrobber(centerElement);
+    }
   });
 }
