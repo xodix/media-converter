@@ -1,5 +1,5 @@
 import { configuration } from "../config";
-import { redrawImages, redrawInitial } from "../draw";
+import { redrawImages } from "../draw";
 import { addThrobber, removeThrobber } from "../throbber";
 
 const imagesElement = document.getElementById("images") as HTMLDivElement;
