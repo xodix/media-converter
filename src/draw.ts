@@ -1,4 +1,4 @@
-import { gaussianBlur } from "./blur";
+import { boxBlur } from "./blur";
 import { configuration } from "./config";
 import { appendError } from "./error";
 import { turnBufferBlackAndWhite } from "./grayscale";
@@ -32,12 +32,7 @@ function repaint(e: Event, canvas: HTMLCanvasElement) {
       turnBufferBlackAndWhite(imageData?.data);
     }
     if (configuration.blurred) {
-      gaussianBlur(
-        imageData.data,
-        configuration.width,
-        configuration.height,
-        3
-      );
+      boxBlur(imageData.data, configuration.width, configuration.height, 4);
     }
     ctx?.putImageData(imageData, 0, 0);
   }

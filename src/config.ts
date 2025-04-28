@@ -67,6 +67,16 @@ export class Configuration {
     imgInput.toggleAttribute("required", true);
   }
 
+  reset() {
+    this.resetImages();
+    this.blurred = false;
+    this.busy = false;
+    this.blackAndWhite = false;
+    this.outputFormat = "image/webp";
+    this.width = 500;
+    this.height = 500;
+  }
+
   changeFormat(format: ImageType) {
     if (!ImageTypes.has(format)) {
       appendError("Wrong format was selected [formatChange]");
@@ -115,6 +125,7 @@ export class Configuration {
       colorRadio.checked = true;
     }
 
+    this.blurred = config.blurred;
     const blurredCheckbox = document.getElementById("blur") as HTMLInputElement;
     blurredCheckbox.checked = config.blurred;
 

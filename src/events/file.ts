@@ -38,7 +38,7 @@ export function handleFileChange(_: Event) {
   configuration.busy = false;
 }
 
-export function handleCancel(_: Event) {
+export function handleFileCancel(_: Event) {
   configuration.resetImages();
   imagesElement.innerHTML = "";
 }

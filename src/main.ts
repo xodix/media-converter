@@ -4,20 +4,21 @@ import { changeColor } from "./events/color";
 import { handleDimensionChange } from "./events/dimensions";
 import { handleSubmit } from "./events/download";
 import { handleFetch } from "./events/fetchRandom";
-import { handleFileChange, handleCancel } from "./events/file";
+import { handleFileChange, handleFileCancel } from "./events/file";
 import { handleFormatChange } from "./events/format";
 
 window.addEventListener("DOMContentLoaded", () => {
   configuration.load();
+
   // file change
   const imgInput = document.getElementById("file") as HTMLInputElement;
   imgInput.addEventListener("change", handleFileChange);
-  imgInput.addEventListener("cancel", handleCancel);
+  imgInput.addEventListener("cancel", handleFileCancel);
 
   // download
   const form = document.getElementsByTagName("form")[0];
   form.addEventListener("submit", handleSubmit);
-  form.addEventListener("reset", handleCancel);
+  form.addEventListener("reset", () => configuration.reset());
 
   // color changes
   const blackAndWhiteRadio = document.getElementById("bw") as HTMLInputElement;
@@ -43,6 +44,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const fetchButton = document.getElementById("fetch") as HTMLButtonElement;
   fetchButton.addEventListener("click", handleFetch);
 
+  //blur
   const blurCheckbox = document.getElementById("blur") as HTMLInputElement;
   blurCheckbox.addEventListener("change", handleBlur);
 });
