@@ -1,5 +1,6 @@
 import { configuration } from "../config";
 import { redrawImages } from "../draw";
+import { appendError } from "../error";
 import { addThrobber, removeThrobber } from "../throbber";
 
 const imagesElement = document.getElementById("images") as HTMLDivElement;
@@ -13,7 +14,6 @@ export async function handleFetch(_: Event) {
   addThrobber(centerElement);
 
   const images: Promise<Response>[] = [];
-  // Improve performance more
   for (let i = 0; i < 5; i++) {
     const image = fetch(
       `https://picsum.photos/${configuration.width}/${configuration.height}`,
@@ -24,7 +24,16 @@ export async function handleFetch(_: Event) {
   let x = 0;
 
   images.forEach(async (response, i) => {
-    const imageURL = URL.createObjectURL(await (await response).blob());
+    let imageURL;
+    try {
+      imageURL = URL.createObjectURL(await (await response).blob());
+    } catch {
+      appendError("Could not fetch random images.");
+      configuration.busy = false;
+      removeThrobber(centerElement);
+      return;
+    }
+
     const canvas = document.createElement("canvas");
     canvas.width = configuration.width;
     canvas.height = configuration.height;

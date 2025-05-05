@@ -34,15 +34,17 @@ export class Configuration {
   width: number;
   height: number;
   outputFormat: ImageType;
+  folderName: string;
   blackAndWhite: boolean;
   blurred: boolean;
   busy: boolean;
   imgs: ImageRepresentation[];
 
   constructor() {
-    this.width = 300;
-    this.height = 300;
+    this.width = 500;
+    this.height = 500;
     this.outputFormat = "image/webp";
+    this.folderName = "images";
     this.blackAndWhite = false;
     this.blurred = false;
     this.busy = false;
@@ -69,12 +71,13 @@ export class Configuration {
 
   reset() {
     this.resetImages();
-    this.blurred = false;
-    this.busy = false;
-    this.blackAndWhite = false;
-    this.outputFormat = "image/webp";
     this.width = 500;
     this.height = 500;
+    this.outputFormat = "image/webp";
+    this.folderName = "images";
+    this.blackAndWhite = false;
+    this.blurred = false;
+    this.busy = false;
   }
 
   changeFormat(format: ImageType) {
@@ -128,6 +131,12 @@ export class Configuration {
     this.blurred = config.blurred;
     const blurredCheckbox = document.getElementById("blur") as HTMLInputElement;
     blurredCheckbox.checked = config.blurred;
+
+    this.folderName = config.folderName;
+    const folderNameInput = document.getElementById(
+      "folder-name"
+    ) as HTMLInputElement;
+    folderNameInput.value = config.folderName;
 
     this.busy = false;
     this.imgs = [];

@@ -41,7 +41,7 @@ export function handleSubmit(e: Event) {
       },
     })
     .then((zip_archive) => {
-      saveAs(zip_archive, "images.zip");
+      saveAs(zip_archive, `${configuration.folderName}.zip`);
       removeThrobber(centerElement);
       configuration.busy = false;
     });

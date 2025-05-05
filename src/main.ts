@@ -5,6 +5,7 @@ import { handleDimensionChange } from "./events/dimensions";
 import { handleSubmit } from "./events/download";
 import { handleFetch } from "./events/fetchRandom";
 import { handleFileChange, handleFileCancel } from "./events/file";
+import { handleFolderNameChange } from "./events/folderName";
 import { handleFormatChange } from "./events/format";
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -33,8 +34,8 @@ window.addEventListener("DOMContentLoaded", () => {
   heightInput.addEventListener("input", handleDimensionChange);
 
   // debug
-  const configButton = document.getElementById("config") as HTMLButtonElement;
-  configButton.addEventListener("click", () => console.log(configuration));
+  // const configButton = document.getElementById("config") as HTMLButtonElement;
+  // configButton.addEventListener("click", () => console.log(configuration));
 
   // format
   const formatSelect = document.getElementById("format") as HTMLSelectElement;
@@ -47,6 +48,12 @@ window.addEventListener("DOMContentLoaded", () => {
   //blur
   const blurCheckbox = document.getElementById("blur") as HTMLInputElement;
   blurCheckbox.addEventListener("change", handleBlur);
+
+  // folder name
+  const folderNameInput = document.getElementById(
+    "folder-name"
+  ) as HTMLInputElement;
+  folderNameInput.addEventListener("input", handleFolderNameChange);
 });
 
 window.addEventListener("beforeunload", () => configuration.save());

@@ -1,5 +1,5 @@
 export function createGaussianKernel(radius: number): number[][] {
-  console.time("Kernel");
+  // console.time("Kernel");
   const deviation = radius / 2;
   const variance = deviation * deviation;
   const divisor = 2 * Math.PI * variance;
@@ -25,7 +25,7 @@ export function createGaussianKernel(radius: number): number[][] {
       matrix[i][j] /= sum;
     }
   }
-  console.timeEnd("Kernel");
+  // console.timeEnd("Kernel");
 
   return matrix;
 }
@@ -81,7 +81,7 @@ export function boxBlur(
   height: number,
   radius: number
 ) {
-  console.time("BoxBlur");
+  // console.time("BoxBlur");
   console.assert(
     height > radius && width > radius,
     "Radius cannot be larger than width or height."
@@ -100,7 +100,7 @@ export function boxBlur(
       applyKernel(arr, width, [x, y], boxKernel);
     }
   }
-  console.timeEnd("BoxBlur");
+  // console.timeEnd("BoxBlur");
 }
 
 const gaussianKernel = createGaussianKernel(4);
@@ -110,7 +110,7 @@ export function gaussianBlur(
   height: number,
   radius: number
 ) {
-  console.time("GaussianBlur");
+  // console.time("GaussianBlur");
   console.assert(
     height > radius && width > radius,
     "Radius cannot be larger than width or height."
@@ -127,5 +127,5 @@ export function gaussianBlur(
       applyKernel(arr, width, [x, y], gaussianKernel);
     }
   }
-  console.timeEnd("GaussianBlur");
+  // console.timeEnd("GaussianBlur");
 }
