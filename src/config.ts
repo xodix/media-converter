@@ -7,10 +7,10 @@ export type ImageType =
   | "image/svg"
   | "image/webp"
   | "image/svg+xml"
-  | "image/ico"
   | "image/gif"
   | "image/avif"
-  | "image/apng";
+  | "image/apng"
+  | "image/ico";
 export const ImageTypes = new Set([
   "image/png",
   "image/jpeg",
@@ -65,6 +65,8 @@ export class Configuration {
       URL.revokeObjectURL(imageInfo.imageURL);
     }
     this.imgs.length = 0;
+    const imagesElement = document.getElementById("images") as HTMLDivElement;
+    imagesElement.innerHTML = "";
 
     imgInput.toggleAttribute("required", true);
   }

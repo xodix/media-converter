@@ -10,7 +10,18 @@ export function handleDimensionChange(_: Event) {
   clearTimeout(dimensionTimer);
 
   dimensionTimer = setTimeout(() => {
-    configuration.changeDimensions(+widthInput.value, +heightInput.value);
+    let width = +widthInput.value;
+    let height = +heightInput.value;
+    if (width < 5) {
+      width = 5;
+      widthInput.value = width.toString();
+    }
+    if (height < 5) {
+      height = 5;
+      heightInput.value = height.toString();
+    }
+
+    configuration.changeDimensions(width, height);
 
     for (let i = 0; i < configuration.imgs.length; i++) {
       const { canvas } = configuration.imgs[i];
@@ -24,5 +35,5 @@ export function handleDimensionChange(_: Event) {
     }
 
     redrawImages();
-  }, 250);
+  }, 500);
 }
