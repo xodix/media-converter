@@ -16,16 +16,16 @@ Uruchamianie projektu:
 - cd media-converter
 - npm i
 - npm run dev
-- Za pomocą przeglądarki przejdź do http://localhost:8080
+- Za pomocą przeglądarki przejdź do http://localhost:5173
 
 LUB
 
 - Pobierz archiwum projektu
 - unzip MediaConverter.zip
-- cd MediaConverter
+- cd media-converter
 - npm i
 - npm run dev
-- Za pomocą przeglądarki przejdź do http://localhost:8080
+- Za pomocą przeglądarki przejdź do http://localhost:5173
 
 Funkcje projektu:
 
