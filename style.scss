@@ -1,4 +1,4 @@
-$primary-color: hsl(0, 0%, 24%);
+$primary-color: hsl(0, 0%, 0%);
 $secondary-color: white;
 $accent-color: #ff0000;
 $complementing-color: hsl(0, 0%, 15%);
@@ -6,9 +6,9 @@ $complementing-color: hsl(0, 0%, 15%);
 body {
   font-size: 1.2rem;
   line-height: 1.5rem;
-  background-color: $primary-color;
+  background-color: rgb(0, 0, 0);
   color: $secondary-color;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Roboto, Helvetica, sans-serif;
   padding: 0;
   margin: 0;
   min-height: 100vh;
@@ -21,17 +21,43 @@ nav {
   left: 0;
   right: 0;
   padding: 1rem;
+  display: flex;
+  align-items: center;
+  height: 2rem;
 }
 
-nav > h1 {
+nav > a {
   margin: 0;
-  font-size: xx-large;
-  text-align: center;
   font-weight: 900;
+  margin-right: 2em;
+  color: white;
+
+  // little trick stolen from css-ril.info
+  text-decoration: underline 0.15em rgba(255, 255, 255, 0);
+  transition: text-decoration-color 500ms;
+}
+
+nav > a > h2 {
+  color: white;
+}
+
+nav > a:hover {
+  text-decoration-color: rgba(255, 255, 255, 1);
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2em;
+}
+
+h1,
+h2 {
+  color: $accent-color;
 }
 
 .spacer {
-  height: 3.5rem;
+  height: 4rem;
 }
 
 main {
@@ -49,7 +75,8 @@ main {
 
 form {
   width: 100%;
-  background-color: hsl(0, 0%, 30%);
+  background-color: $complementing-color;
+  color: white;
   border-radius: 1rem;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
@@ -93,7 +120,8 @@ button {
   display: block;
   height: 2.5rem;
   border-radius: 0.35rem;
-  background-color: $complementing-color;
+  background-color: white;
+  color: black;
 }
 
 input[type="radio"],
@@ -122,13 +150,14 @@ button {
   font-size: large;
   padding: 0.5rem;
   background-color: #af0404;
+  color: white;
   border: 1px solid black;
   margin-bottom: 1rem;
 }
 
 button:hover,
-:focus {
-  border: 2px solid black;
+button:focus {
+  border: 2px solid white;
 }
 
 #images {
@@ -161,6 +190,10 @@ canvas {
   main {
     width: 75%;
   }
+
+  nav {
+    justify-content: space-around;
+  }
 }
 
 @media screen and (max-width: 570px) {
@@ -169,11 +202,18 @@ canvas {
     margin: 0;
   }
 
+  nav > a {
+    font-size: 0.8em;
+  }
+
+  .spacer {
+    height: 4em;
+  }
+
   main {
     width: 100%;
   }
 
-  // Fix overflow
   #images,
   form {
     padding: 0.4rem;
@@ -197,12 +237,13 @@ footer {
 
 .fetch-button {
   background-color: $complementing-color;
-  border: solid $accent-color 1px;
+  color: white;
+  border: solid $accent-color 2px;
 }
 
 .fetch-button:hover,
 .fetch-button:focus {
-  border: solid $accent-color 2px;
+  border: solid $accent-color 4px;
 }
 
 .center {

@@ -30,8 +30,8 @@ window.addEventListener("DOMContentLoaded", () => {
   // dimension changes
   const widthInput = document.getElementById("width") as HTMLInputElement;
   const heightInput = document.getElementById("height") as HTMLInputElement;
-  widthInput.addEventListener("input", handleDimensionChange);
-  heightInput.addEventListener("input", handleDimensionChange);
+  widthInput.addEventListener("change", handleDimensionChange);
+  heightInput.addEventListener("change", handleDimensionChange);
 
   // debug
   // const configButton = document.getElementById("config") as HTMLButtonElement;

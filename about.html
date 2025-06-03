@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description"
+		content="A utility for image standardization, making thumbnails and bulk editing of images.">
+	<meta name="keywords"
+		content="png to jpg, jpg to png, webp to png, png to webp, svg to webp, svg to png, svg to jpg">
+	<meta name="author" content="Bartłomiej Deska">
+
+	<link rel="stylesheet" href="./style.min.css">
+	<script type="module" src="/src/main.ts"></script>
+	<title>Media converter</title>
+</head>
+
+<body>
+	<nav>
+		<a href="/">
+			<h2>Edytor</h2>
+		</a>
+		<a href="about.html">
+			<h2>O projekcie</h2>
+		</a>
+	</nav>
+	<div class="spacer"></div>
+	<main>
+		<!-- This should be named differently but there was no time -->
+		<div id="images">
+			<h1 style="text-align: center;">Przetwarzanie obrazów</h1>
+			<div class="topic">
+				<h2>Algorytm konwersji do odcieni szarości</h2>
+				<p>
+					Algorytm konwersji obrazu kolorowego do odcieni szarości (ang. grayscale conversion) polega na
+					przekształceniu każdego piksela obrazu tak, aby jego trzy składowe kolorów (czerwony - R, zielony -
+					G, niebieski - B) miały tę samą wartość, co skutkuje obrazem pozbawionym barw, ale zachowującym
+					informacje o jasności.
+				</p>
+				<h2>Algorytm z wagami: r = g = b = (r*0.3 + g*0.6 + b*0.1)</h2>
+				<p>
+					W tym algorytmie każda wartość kanału RGB zostaje zastąpiona przez ważoną średnią oryginalnych
+					składowych
+					<b>Ten algorytm został użyty w media-converter ze względu na wzięcie pod uwagę wpływ ludzkiego
+						postrzegania kolorów na jasność.</b>
+				</p>
+				<h3>Przed:</h3>
+				<img src="images/photo1_color.jpeg" style="width: 100%;" alt="The color version of the picture">
+				<h3>Po:</h3>
+				<img src="images/photo1_greyscale.png" style="width: 100%;" alt="The grayscale version of the picture">
+			</div>
+			<div class="topic">
+				<h2>Algorytm rozmycia</h2>
+				<p>
+					Rozmycie (ang. blurring) to technika przetwarzania obrazu polegająca na wygładzaniu pikseli. Głównym
+					celem rozmycia jest zredukowanie szczegółów lub szumu poprzez uśrednianie wartości sąsiednich
+					pikseli.
+					Efektem działania algorytmu rozmycia jest „miękki” obraz, na którym ostre przejścia kolorów i
+					krawędzie
+					zostają złagodzone.
+				</p>
+
+				<h2>Rozmycie liniowe</h2>
+				<p>
+					Algorytm rozmycia liniowego to jedna z najprostszych metod rozmywania obrazu. Polega na zastąpieniu
+					wartości każdego piksela średnią z jego najbliższych sąsiadów. Implementacja algorytmów używa w tym
+					celu
+					kwadratu o zadanej wielkości, którego środkiem jest zmieniany pixel. Na rogach kwadrat wychodzi poza
+					granice
+					obrazu. Algorytm może:
+				<ul>
+					<li>Wypełnić czernią</li>
+					<li>Wypełnić bielą</li>
+					<li><b>Pominąć krawędzie</b></li>
+				</ul>
+				<b>
+					Ten algorytm został użyty w media-converter ponieważ JavaScript może przekształcić jedno zdjęcie
+					8MPx w czasie &le;4s. </b>
+				</p>
+				<h3>Przed:</h3>
+				<img src="images/photo2_normal.jpg" style="width: 100%;" alt="The color version of the picture">
+				<h3>Po:</h3>
+				<img src="images/photo2_blur.png" style="width: 100%;" alt="The grayscale version of the picture">
+			</div>
+		</div>
+	</main>
+	<div class="spacer"></div>
+	<footer>Bartłomiej Deska 2025</footer>
+</body>
+
+</html>
